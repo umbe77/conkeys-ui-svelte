@@ -34,7 +34,7 @@
     );
     if (error) {
       showSaveError = true;
-      saveError = error;
+      saveError = JSON.stringify(error);
       return;
     }
     showSaveError = false;

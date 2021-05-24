@@ -40,7 +40,7 @@ export const getKeys = async (searchTerm) => {
 
 export const saveKey = async ({ key, value, type }, token) => {
   try {
-    await fetch(`/api/key/${encodeURIComponent(key)}`, {
+    const resp = await fetch(`/api/key/${encodeURIComponent(key)}`, {
       method: "put",
       headers: {
         Authorization: `Bearer ${token}`,
@@ -51,6 +51,11 @@ export const saveKey = async ({ key, value, type }, token) => {
         V: value,
       }),
     });
+    if (resp.status >= 400) {
+      return {
+        ...(await resp.json()),
+      };
+    }
     return {};
   } catch (error) {
     return {
